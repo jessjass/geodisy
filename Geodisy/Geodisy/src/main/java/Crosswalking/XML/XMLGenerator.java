@@ -10,6 +10,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.util.LinkedList;
+import java.util.Stack;
+
 import static BaseFiles.GeodisyStrings.CHARACTER;
 import static BaseFiles.GeodisyStrings.XMLNS;
 import static Dataverse.DVFieldNameStrings.*;
@@ -27,34 +29,46 @@ public class XMLGenerator {
         this.citationFields = djo.getCitationFields();
         this.geographicFields=djo.getGeoFields();
         this.simpleCitationFields = citationFields.getSimpleCitationFields();
+        this.doc = new XMLDocument();
     }
 
     //TODO keep working on this
     public Document generateXMLFile(){
+            XMLStackElement root = new XMLStackElement(doc,generateRoot());
+            root.addNode(createIdentificationInfo());
+            SimpleCitationFields simple = djo.getSimpleFields();
 
-            // root element
-            Element rootElement = doc.createGMDElement("MD_Metadata");
-            rootElement.setAttribute("xmlns",XMLNS + "gmd");
-            rootElement.setAttribute("xmlns:gco",XMLNS + "gco");
-            rootElement.setAttribute("xmlns:gts",XMLNS + "gts");
-            rootElement.setAttribute("xmlns:srv",XMLNS + "srv");
-            rootElement.setAttribute("xmlns:gml",XMLNS + "gml");
-            rootElement.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink");
-            rootElement.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-        rootElement.appendChild(createIdentificationInfo());
-        SimpleCitationFields simple = djo.getSimpleFields();
-        if(simple.hasField(ACCESS_TO_SOURCES)||simple.hasField(ORIG_OF_SOURCES)||simple.hasField(CHAR_OF_SOURCES)||simple.hasField(DATA_SOURCE))
-            rootElement.appendChild(createDataQualityInfo(simple));
-        
-        
+            if(simple.hasField(ACCESS_TO_SOURCES)||simple.hasField(ORIG_OF_SOURCES)||simple.hasField(CHAR_OF_SOURCES)||simple.hasField(DATA_SOURCE))
+            root.addNode(createDataQualityInfo(simple, root));
+
+
+        doc.addRoot(root);
         return doc.getDoc();
     }
-    private Element createDataQualityInfo(SimpleCitationFields simple){
-        Element root = doc.createGMDElement("dataQualityInfo");
-        Element levelA = doc.createGMDElement("DQ_DataQuality");
-        Element levelB = doc.createGMDElement("scope");
-        Element levelC = doc.createGMDElement("resourceLineage");
-        Element levelD = doc.createGMDElement("LI_Lineage");
+
+    private Element generateRoot() {
+        // root element
+        Element rootElement = doc.createGMDElement("MD_Metadata");
+        rootElement.setAttribute("xmlns",XMLNS + "gmd");
+        rootElement.setAttribute("xmlns:gco",XMLNS + "gco");
+        rootElement.setAttribute("xmlns:gts",XMLNS + "gts");
+        rootElement.setAttribute("xmlns:srv",XMLNS + "srv");
+        rootElement.setAttribute("xmlns:gml",XMLNS + "gml");
+        rootElement.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink");
+        rootElement.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+        return rootElement;
+    }
+
+    private Element createDataQualityInfo(SimpleCitationFields simple, XMLStackElement root){
+        XMLStackElement x = root;
+        XMLStackElement parent = root;
+
+        x.addGMDNode("dataQualityInfo");
+        x = x.
+        doc.pushStackElement(doc.createGMDElement("DQ_DataQuality"));
+        doc.pushStackElement(doc.createGMDElement("scope"));
+        doc.pushStackElement(doc.createGMDElement("resourceLineage"));
+        doc.pushStackElement(doc.createGMDElement("LI_Lineage"));
         if(simple.hasField(DATA_SOURCE))
             levelD.appendChild(doc.addVal("statement",CHARACTER));
         if(simple.hasField(ORIG_OF_SOURCES)) {
