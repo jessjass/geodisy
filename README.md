@@ -1,4 +1,19 @@
 # Geodisy
+
+## Build - Harvard WIP
+Note: tests are currently broken
+```
+mvn clean install -DskipTests
+```
+
+This results in a standalone/executable jar file (Geodisy-1.0-SNAPSHOT-jar-with-dependencies.jar):
+```
+java -jar target/Geodisy-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
+..which currently throws an NPE :)
+
+
+
 #### The world of data at your fingertips
 
 ## What is Geodisy?
