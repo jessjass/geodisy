@@ -1,0 +1,14 @@
+# Build all images and run all containers
+# `docker-compose -f docker-compose-local.yml up -d --build --force-recreate`
+
+version: '3.7'
+
+services:
+  geodisy_app:
+    container_name: geodisy
+    build:
+      context: ./Geodisy
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - "3000:3000"
