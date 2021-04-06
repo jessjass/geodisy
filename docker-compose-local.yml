@@ -7,8 +7,8 @@ services:
   geodisy_app:
     container_name: geodisy
     build:
-      context: ./Geodisy
-      dockerfile: Dockerfile
+      context: ./Geodisy/Geodisy
+      dockerfile: DockerfileLocal
     tty: true
     ports:
       - "3000:3000"
