@@ -3,6 +3,8 @@ package _Strings;
 public class PrivateStringTemplate {
     //This is an example of what Constants you will need to save in a class 'PrivateStrings' in the BaseFiles Package
     //Do not save the actual 'PrivateStrings' class these with publicly accessible code, it needs to be kept private
+    public final static String PRIVATE_OPENGEOMETADATA_USERNAME = "[Your POSTGIS USER PASSWORD]";
+    public final static String PRIVATE_OPENGEOMETADATA_PASSWORD = "[Your POSTGIS USER PASSWORD]";
     public final static String PRIVATE_GIT_PASSWORD = "[Your GIT Password]";
     public final static String PRIVATE_GEOSERVER_PASSWORD = "[Your Geoserver Password]";
     public final static String PRIVATE_GEOSERVER_USERNAME = "[Your Geoserver Username]";
