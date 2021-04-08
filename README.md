@@ -1,16 +1,22 @@
 # Geodisy
 
 ## Build - Harvard WIP
-Note: tests are currently broken
+
+**Set-up**
+
+Copy Geodisy/Geodisy/src/main/java/_Strings/PrivateStringTemplate.java to Geodisy/Geodisy/src/main/java/_Strings/PrivateStrings.java
+* Make sure to edit the class name in the copied file
+
+**Build & Run**
+
 ```
-mvn clean install -DskipTests
+mvn clean install
 ```
 
 This results in a standalone/executable jar file (Geodisy-1.0-SNAPSHOT-jar-with-dependencies.jar):
 ```
 java -jar target/Geodisy-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
-..which currently throws an NPE :)
 
 
 
