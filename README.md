@@ -9,6 +9,14 @@ Copy Geodisy/Geodisy/src/main/java/_Strings/PrivateStringTemplate.java to Geodis
 
 **Build & Run**
 
+In Docker:
+
+```
+docker-compose -f docker-compose-local.yml up -d --build --force-recreate
+```
+
+On local machine:
+
 ```
 mvn clean install
 ```
