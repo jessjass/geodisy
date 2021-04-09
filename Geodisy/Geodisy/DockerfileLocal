@@ -13,5 +13,5 @@ RUN apk add --no-cache bash && \
   apk add maven && \
   mvn clean install
 ENTRYPOINT ["java", "-jar", "target/Geodisy-1.0-SNAPSHOT-jar-with-dependencies.jar"]
-ENTRYPOINT ["tail"]
-CMD ["-f","/dev/null"]
+# ENTRYPOINT ["tail"]
+# CMD ["-f","/dev/null"]
